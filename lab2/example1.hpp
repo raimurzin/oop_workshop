@@ -1,9 +1,10 @@
 #include <iostream>
 #include <unordered_map>
+#include <string>
 
 enum class Gender {
-    Man,
-    Woman
+    Man, // Мужчина
+    Woman // Женщина
 }
 
 enum class ActivismType {
@@ -14,44 +15,18 @@ enum class ActivismType {
 class Person {
 public:
     Person() = default;
-    Person(uing age, uint gender) : age(age), gender(gender) {}
-    Person(const Person& p) : age(p.age), gender(p.gender) {}
-    Person& operator=(const Person& p) { return Person(p); }
+    Person(uint age, uint gender, std::string name) : age(age), gender(gender), name(name) {}
+    Person(const Person& p) : age(p.age), gender(p.gender), name(p.name) {}
+    Person& operator=(const Person& p) { 
+        auto pCopy = Person(p);
+        swap(pCopy, p);
+        return &pCopy;
+    }
     ~Person() = default;
+public:
+
 private:
     uint age;
-    uint gender; 
-};
-
-class Employee : public Person {
-public:
-
-private:
-    uint salary;
-    std::string company; // Название компании
-    std::string position; // Должность в компании
-};
-
-class Student : public Person {
-public:
-
-private:
-    uint grade; // Курс стеднта
-    uint grant; // Размер стипендии студента
-    std::string speciality; // Специальность студента
-};
-
-class Activist : public Person {
-public:
-
-private:
-    uint activismType;
-};
-
-class WorkingStudent : public Employee, Student {
-
-};
-
-class Superman : public Employee, Student, Activist {
-
+    uint gender;
+    std::string name
 };
