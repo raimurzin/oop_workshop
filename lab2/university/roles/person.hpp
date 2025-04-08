@@ -4,7 +4,7 @@
 class Person {
 public:
     Person() {
-        std::cout << "Created Unknown Person\n";
+        std::cout << "Created Class - Unknown Person\n";
     }
     Person(uint age, std::string name) : age(age), name(name) {}
     Person(const Person& p) : age(p.age), name(p.name) {}
@@ -16,7 +16,7 @@ public:
         return *this;
     }
     virtual ~Person() {
-        std::cout << "Removed " + (name.empty() ? "Unknown Person" : name) + "\n";
+        std::cout << "Removed Class - " + (name.empty() ? "Unknown Person" : name) + "\n";
     }
 public:
     virtual std::string whoami() const;
