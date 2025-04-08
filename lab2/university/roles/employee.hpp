@@ -12,7 +12,7 @@ public:
         
     Employee(const std::string& name, const std::string& company, const Bill& bill)
         : Person(name), company(company), bill(bill) {
-        std::cout << "Created Employee " << name << " from the company " << company;
+        std::cout << "Created Employee " << name << " from the company " << company << "\n";;
     }
         
     Employee(const Employee& other) 
@@ -33,7 +33,7 @@ public:
     }
 
 public:
-    virtual std::string whoami() const override;
+    virtual void whoami() const override;
     
 public:
     static void swap(Employee& first, Employee& second) noexcept {
@@ -47,6 +47,6 @@ private:
     Bill bill;
 };
 
-std::string Employee::whoami() const override {
-    return "I'm Employee " + Person::name + " from the company " + company;
+void Employee::whoami() const {
+    std::cout << "I'm Employee " << Person::name << " from the company " << company << "\n";
 }

@@ -7,7 +7,7 @@ public:
     Person() : name("Unknown") {
         std::cout << "Created Person - Unknown\n";
     }
-    Person(uint age, std::string name) : name(name) {
+    Person(std::string name) : name(name) {
         std::cout << "Created Person - " + name + "\n";
     }
     Person(const Person& p) : name(p.name) {
@@ -24,7 +24,7 @@ public:
         std::cout << "Removed Person - " + name + "\n";
     }
 public:
-    virtual std::string whoami() const;
+    virtual void whoami() const;
 
 public:
     static void swap(Person& first, Person& second) noexcept {
@@ -34,6 +34,6 @@ protected:
     std::string name;
 };
 
-std::string Person::whoami() const {
-    return "I`m " + name + "\n";
+void Person::whoami() const {
+    std::cout <<  "I`m " << name << "\n";
 }

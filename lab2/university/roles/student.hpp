@@ -10,14 +10,14 @@ public:
         std::cout << "Created Student - Unknown\n";
     }
         
-    Student(const std::string& name, uint course, uint group, const Institute& institute)
+    Student(const std::string& name, uint course, uint group, Institute* institute)
         : Person(name), course(course), group(group), institute(institute) {
-        std::cout << "Created Student " << name << ", Course " << course << ", Group " << group << ", Institute: " << institute.getName() << "\n";
+        std::cout << "Created Student " << name << ", Course " << course << ", Group " << group << ", Institute: " << institute->getName() << "\n";
     }
         
     Student(const Student& other) 
         : Person(other), course(other.course), group(other.group), institute(other.institute) {
-        std::cout << "Created Student by copy - Course " << course << ", Group " << group << "\n";
+        std::cout << "Created Student by copy - Course " << course << ", Group " << group << ", Institute: " << institute->getName() << "\n";
     }
 
     Student& operator=(const Student& p) { 
@@ -31,20 +31,20 @@ public:
         std::cout << "Removed Student " << Person::name << " - Course " << course << ", Group " << group << "\n";
     }
 public:
-    virtual std::string whoami() const override;
+    virtual void whoami() const override;
 
 public:
     static void swap(Student& first, Student& second) noexcept {
         std::swap(first.name, second.name);
         std::swap(first.course, second.course);
-        Institute::swap(first.institute, second.institute);
+        Institute::swap(*(first.institute), *(second.institute));
     }
 private:
     uint course;
     uint group;
-    Institute& institute; 
+    Institute* institute; 
 };
 
-std::string Student::whoami() const override {
-    return "I'm Student " << Person::name << " - Course " << course << " of institute " + institute.getName() << "\n";
+void Student::whoami() const {
+    std::cout <<  "I'm Student " << Person::name << " - Course " << course << " of institute " << institute->getName() << "\n";
 }
