@@ -1,13 +1,18 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 class Person {
 public:
-    Person() {
-        std::cout << "Created Class - Unknown Person\n";
+    Person() : name("Unknown") {
+        std::cout << "Created Person - Unknown\n";
     }
-    Person(uint age, std::string name) : age(age), name(name) {}
-    Person(const Person& p) : age(p.age), name(p.name) {}
+    Person(uint age, std::string name) : name(name) {
+        std::cout << "Created Person - " + name + "\n";
+    }
+    Person(const Person& p) : name(p.name) {
+        std::cout << "Created Person by copy - " + name + "\n";
+    }
     Person& operator=(const Person& p) { 
         if (this != &p) {
             Person temp(p);
@@ -16,22 +21,19 @@ public:
         return *this;
     }
     virtual ~Person() {
-        std::cout << "Removed Class - " + (name.empty() ? "Unknown Person" : name) + "\n";
+        std::cout << "Removed Person - " + name + "\n";
     }
 public:
     virtual std::string whoami() const;
-private:
-    void swap(Person& first, Person& second) noexcept {
-        using std::swap;
-        swap(first.age, second.age);
-        swap(first.name, second.name);
+
+public:
+    static void swap(Person& first, Person& second) noexcept {
+        std::swap(first.name, second.name);
     }
-private:
-    uint age;
+protected:
     std::string name;
 };
 
 std::string Person::whoami() const {
-    std::cout << "I`m " + (name.empty() ? "Unknown Person" : name) + "\n";
-    return {};
+    return "I`m " + name + "\n";
 }
