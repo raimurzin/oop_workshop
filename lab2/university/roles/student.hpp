@@ -6,7 +6,7 @@
 
 class Student : public Person {
 public:
-    Student() {
+    Student() : course(0), group(0), institute(nullptr) {
         std::cout << "Created Student - Unknown\n";
     }
         
@@ -28,7 +28,11 @@ public:
         return *this;
     }
     virtual ~Student() {
-        std::cout << "Removed Student " << Person::name << " - Course " << course << ", Group " << group << "\n";
+        if (institute != nullptr) {
+            std::cout << "Removed Student " << Person::name << " - Course " << course << ", Group " << group << "\n";
+        } else {
+            std::cout << "Removed Unknown Student\n";
+        }
     }
 public:
     virtual void whoami() const override;

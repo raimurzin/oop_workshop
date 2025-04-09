@@ -6,7 +6,7 @@
 
 class Professor : public Employee {
 public:
-    Professor() {
+    Professor() : institute(nullptr) {
         std::cout << "Created Professor - Unknown\n";
     }
         
@@ -29,7 +29,11 @@ public:
     }
     
     virtual ~Professor() {
-        std::cout << "Removed Professor " << 5 << " from " << institute->getName() << " Institute";
+        if (institute != nullptr) {
+            std::cout << "Removed Professor " << 5 << " from " << institute->getName() << " Institute";
+        } else {
+            std::cout << "Removed Unknown Professor\n";
+        }
     }
 
 public:
@@ -46,5 +50,9 @@ private:
 };
 
 void Professor::whoami() const {
-    std::cout << "I'm Professor " << "5" << " from " << institute->getName() << " Institute\n";
+    if (institute != nullptr) {
+        std::cout << "I'm Professor " << "5" << " from " << institute->getName() << " Institute\n";
+    } else {
+        std::cout << "I'm Unknown Professor\n";
+    }
 }
