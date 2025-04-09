@@ -6,17 +6,23 @@
 
 class Student : public Person {
 public:
-    Student() : course(0), group(0), institute(nullptr) {
+    Student() : course(0), group(0), institute(new Institute()) {
         std::cout << "Created Student - Unknown\n";
     }
         
-    Student(const std::string& name, uint course, uint group, Institute* institute)
-        : Person(name), course(course), group(group), institute(institute) {
-        std::cout << "Created Student " << name << ", Course " << course << ", Group " << group << ", Institute: " << institute->getName() << "\n";
+    Student(const std::string& name, uint course, uint group, const std::string& unver_name, const std::string& department) :
+        Person(name), 
+        course(course), 
+        group(group), 
+        institute(new Institute(unver_name, department)) {
+        std::cout << "Created Student " << name << ", Course " << course << ", Group " << group << ", Institute: " << unver_name << "\n";
     }
         
-    Student(const Student& other) 
-        : Person(other), course(other.course), group(other.group), institute(other.institute) {
+    Student(const Student& other) : 
+        Person(other),
+        course(other.course), 
+        group(other.group), 
+        institute(new Institute(*other.institute)) {
         std::cout << "Created Student by copy - Course " << course << ", Group " << group << ", Institute: " << institute->getName() << "\n";
     }
 
@@ -28,11 +34,8 @@ public:
         return *this;
     }
     virtual ~Student() {
-        if (institute != nullptr) {
-            std::cout << "Removed Student " << Person::name << " - Course " << course << ", Group " << group << "\n";
-        } else {
-            std::cout << "Removed Unknown Student\n";
-        }
+        std::cout << "Removed Student " << Person::name << " - Course " << course << ", Group " << group << "\n";
+        delete institute;
     }
 public:
     virtual void whoami() const override;
@@ -46,7 +49,7 @@ public:
 private:
     uint course;
     uint group;
-    Institute* institute; 
+    Institute* institute;
 };
 
 void Student::whoami() const {

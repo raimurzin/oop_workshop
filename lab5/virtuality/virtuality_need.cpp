@@ -17,6 +17,7 @@ namespace overlapping {
         void write_smth() const {
             std::cout << "It's derived\n";
         }
+        // using Base::write_smth()
     };
 }
 

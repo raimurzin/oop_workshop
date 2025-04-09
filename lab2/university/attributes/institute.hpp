@@ -4,7 +4,9 @@
 
 class Institute {
 public:
-    Institute() : name("Unknown"), department("Unknown") {
+    Institute() {
+        name = "Unknown";
+        department = "Unknown";
         std::cout << "Created Institute - Unknown\n";
     }
         

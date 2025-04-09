@@ -27,16 +27,12 @@ void test1() {
     }
     std::cout << "\n______________________________________\n\n";
     {
-        Institute* iimrt = new Institute("UUST", "IIMRT");
-        Student p2("Johny B", 3, 3, iimrt);
-        delete iimrt;
+        Student p2("Johny B", 3, 3, "UUST", "IIMRT");
     }
     std::cout << "\n______________________________________\n\n";
     {
-        Institute* iimrt = new Institute("UUST", "IIMRT");
-        Student p2("Johny B", 3, 3, iimrt);
+        Student p2("Johny B", 3, 3, "UUST", "IIMRT");
         Student p3(p2);
-        delete iimrt;
     }
     std::cout << "\n______________________________________\n\n";
     {
@@ -59,15 +55,13 @@ void test1() {
     }
     std::cout << "\n______________________________________\n\n";
     {
-        Institute iimrt = Institute("UUST", "IIMRT");
         Bill bill = Bill(70000, "Gazprom");
-        Professor prf2("Johny B", "UUST", bill, &iimrt);
+        Professor prf2("Johny B", "UUST", bill, "UUST", "IIMRT");
     }
     std::cout << "\n______________________________________\n\n";
     {
-        Institute iimrt = Institute("UUST", "IIMRT");
         Bill bill = Bill(70000, "Gazprom");
-        Professor prf2("Johny B", "UUST", bill, &iimrt);
+        Professor prf2("Johny B", "UUST", bill, "UUST", "IIMRT");
         Professor prf3(prf2);
     }
     std::cout << "\n______________________________________\n\n";
@@ -76,22 +70,18 @@ void test1() {
 void test2() {
     std::cout << "-------------->Check test 2\n\n";
     {
-        Institute* iimrt = new Institute("UUST", "FIRT");
-        Person* person = new Student("Johny B", 3, 3, iimrt);
+        Person* person = new Student("Johny B", 3, 3, "UUST", "IIMRT");
         person->whoami();
-        iimrt->setName("IIMRT");
         delete person;
-        delete iimrt;
     }
     std::cout << "\n______________________________________\n\n";
     {
-        Institute iimrt = Institute("UUST", "FIRT");
         Bill bill = Bill(70000, "Gazprom");
 
         std::vector<Person*> v(3);
         v[0] = new Employee("Johny B", "MTC", bill);
-        v[1] = new Student("Maria B", 3, 3, &iimrt);
-        v[2] = new Professor("Johny B", "UUST", bill, &iimrt);
+        v[1] = new Student("Maria B", 3, 3, "UUST", "IIMRT");
+        v[2] = new Professor("Johny B", "UUST", bill, "UUST", "IIMRT");
 
         v[0]->whoami();
         v[1]->whoami();
@@ -103,13 +93,12 @@ void test2() {
     }
     std::cout << "\n______________________________________\n\n";
     {
-        Institute iimrt = Institute("UUST", "FIRT");
         Bill bill = Bill(70000, "Gazprom");
 
         std::vector<Person> v(3);
         v[0] = Employee("Johny B", "MTC", bill);
-        v[1] = Student("Maria B", 3, 3, &iimrt);
-        v[2] = Professor("Johny B", "UUST", bill, &iimrt);
+        v[1] = Student("Maria B", 3, 3, "UUST", "IIMRT");
+        v[2] = Professor("Johny B", "UUST", bill, "UUST", "IIMRT");
 
         v[0].whoami();
         v[1].whoami();
@@ -118,7 +107,9 @@ void test2() {
 }
 
 int main() {
+    //Student prf;
     test1();
     test2();
+    //Professor p;
     return 0;
 }

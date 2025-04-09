@@ -6,18 +6,20 @@
 
 class Professor : public Employee {
 public:
-    Professor() : institute(nullptr) {
+    Professor() : institute(new Institute()) {
         std::cout << "Created Professor - Unknown\n";
     }
         
-    Professor(const std::string& name, const std::string& company, const Bill& bill, Institute* institute)
-        : Employee(name, company, bill), institute(institute) {
-        std::cout << "Created Professor " << 5 << " from Institue " << institute->getName() << "\n";
+    Professor(const std::string& name, const std::string& company, const Bill& bill, const std::string& unver_name, const std::string& department) :
+        Employee(name, company, bill),
+        institute(new Institute(unver_name, department)) {
+        std::cout << "Created Professor " << " from Institue " << unver_name << "\n";
     }
         
-    Professor(const Professor& other) 
-        : Employee(other), institute(other.institute) {
-        std::cout << "Created Professor " << 5 << " by copy from Institue " << institute->getName() << "\n";
+    Professor(const Professor& other) :
+        Employee(other),
+        institute(new Institute(*other.institute)) {
+        std::cout << "Created Professor " << " by copy from Institue " << institute->getName() << "\n";
     }
 
     Professor& operator=(const Professor& p) { 
@@ -29,11 +31,8 @@ public:
     }
     
     virtual ~Professor() {
-        if (institute != nullptr) {
-            std::cout << "Removed Professor " << 5 << " from " << institute->getName() << " Institute";
-        } else {
-            std::cout << "Removed Unknown Professor\n";
-        }
+        std::cout << "Removed Professor " << " from " << institute->getName() << " Institute";
+        delete institute;
     }
 
 public:
@@ -46,13 +45,9 @@ public:
     }
 
 private:
-    Institute* institute;
+    Institute* institute = new Institute();
 };
 
 void Professor::whoami() const {
-    if (institute != nullptr) {
-        std::cout << "I'm Professor " << "5" << " from " << institute->getName() << " Institute\n";
-    } else {
-        std::cout << "I'm Unknown Professor\n";
-    }
+    std::cout << "I'm Professor " << " from " << institute->getName() << " Institute\n";
 }
