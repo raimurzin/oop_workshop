@@ -18,7 +18,7 @@ public:
         
     Professor(const Professor& other) :
         Employee(other),
-        institute(new Institute(*other.institute)) {
+        institute(new Institute(*(other.institute))) {
         std::cout << "Created Professor " << " by copy from Institue " << institute->getName() << "\n";
     }
 
